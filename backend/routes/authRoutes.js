@@ -1,7 +1,7 @@
 const express = require('express');
 const { sign } = require('jsonwebtoken');
 const router = express.Router();
-const { signup , signin, logout, userProfile} = require('../controller/authController');
+const { signup , signin, logout, userProfile} = require('../controllers/authController');
 const { isAuthenticated } = require('../middleware/auth');
 
 //auth routes

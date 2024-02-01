@@ -3,8 +3,11 @@ const User = require('../models/userModel');
 const ErrorResponse = require('../utils/errorResponse');
 
 exports.signup = async(req, res, next) => {
-    const {email} =req.body;
+    const email =req.body.emailId;
+    console.log("request",req.body);
+    console.log("email", email);
     const userExist = await User.findOne({email});
+    console.log("userExist", userExist)
     if(userExist){
         return next(new ErrorResponse("e-mail already registred", 400));
     }
