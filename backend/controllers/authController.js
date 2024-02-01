@@ -2,22 +2,24 @@
 const User = require('../models/userModel');
 const ErrorResponse = require('../utils/errorResponse');
 
-exports.signup = async(req, res, next) => {
-    const {email} =req.body;
-    const userExist = await User.findOne({email});
-    if(userExist){
-        return next(new ErrorResponse("e-mail already registred", 400));
+
+exports.signup = async (req, res, next) => {
+    const { emailId } = req.body;
+    const userExist = await User.findOne({ emailId });
+    if (userExist) {
+        return next(new ErrorResponse("E-mail already registred", 400));
     }
-    try{
+    try {
         const user = await User.create(req.body);
         res.status(201).json({
             success: true,
             user
         })
-    }catch(error){
+    } catch (error) {
         next(error);
     }
 }
+
 
 exports.signin = async (req, res, next) => {
 
@@ -32,14 +34,14 @@ exports.signin = async (req, res, next) => {
         }
 
         //check user email
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ emailId : email });
         if (!user) {
-            return next(new ErrorResponse("invalid credentials", 400));
+            return next(new ErrorResponse("invalid email credentials", 400));
         }
         //check password
         const isMatched = await user.comparePassword(password);
         if (!isMatched) {
-            return next(new ErrorResponse("invalid credentials", 400));
+            return next(new ErrorResponse("invalid password credentials", 400));
         }
 
         sendTokenResponse(user, 200, res);
@@ -57,6 +59,7 @@ const sendTokenResponse = async (user, codeStatus, res) => {
         .json({ success: true, token, user })
 }
 
+
 // log out
 exports.logout = (req, res, next) => {
     res.clearCookie('token');
@@ -66,9 +69,11 @@ exports.logout = (req, res, next) => {
     })
 }
 
-//user profile
-exports.userProfile = async(req, res, next) => {
-    const user = await User.findById(res.user.id).select('-password');
+
+// user profile
+exports.userProfile = async (req, res, next) => {
+
+    const user = await User.findById(req.user.id).select('-password');
 
     res.status(200).json({
         success: true,
