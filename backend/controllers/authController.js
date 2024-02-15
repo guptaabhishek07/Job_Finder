@@ -4,8 +4,8 @@ const ErrorResponse = require('../utils/errorResponse');
 
 
 exports.signup = async (req, res, next) => {
-    const { emailId } = req.body;
-    const userExist = await User.findOne({ emailId });
+    const { email } = req.body;
+    const userExist = await User.findOne({ email });
     if (userExist) {
         return next(new ErrorResponse("E-mail already registred", 400));
     }
@@ -20,6 +20,7 @@ exports.signup = async (req, res, next) => {
     }
 }
 
+
 exports.signin = async (req, res, next) => {
 
     try {
@@ -33,14 +34,14 @@ exports.signin = async (req, res, next) => {
         }
 
         //check user email
-        const user = await User.findOne({ emailId : email });
+        const user = await User.findOne({ email });
         if (!user) {
-            return next(new ErrorResponse("invalid email credentials", 400));
+            return next(new ErrorResponse("invalid credentials", 400));
         }
         //check password
         const isMatched = await user.comparePassword(password);
         if (!isMatched) {
-            return next(new ErrorResponse("invalid password credentials", 400));
+            return next(new ErrorResponse("invalid credentials", 400));
         }
 
         sendTokenResponse(user, 200, res);
@@ -55,8 +56,12 @@ const sendTokenResponse = async (user, codeStatus, res) => {
     res
         .status(codeStatus)
         .cookie('token', token, { maxAge: 60 * 60 * 1000, httpOnly: true })
-        .json({ success: true, token, user })
+        .json({
+            success: true,
+            role: user.role
+        })
 }
+
 
 // log out
 exports.logout = (req, res, next) => {

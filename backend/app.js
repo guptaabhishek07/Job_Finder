@@ -11,6 +11,9 @@ const errorHandler = require("./middleware/error");
 //import routes
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
+const jobsTypeRoute = require('./routes/jobsTypeRoutes');
+const jobsRoute = require('./routes/jobsRoutes');
+
 
 //databse connection
 mongoose.connect(process.env.DATABASE, {
@@ -37,6 +40,8 @@ app.use(cors());
 //})
 app.use('/api', authRoutes);
 app.use('/api',userRoutes);
+app.use('/api',jobsTypeRoute);
+app.use('/api',jobsRoute);
 
 //error middleware
 app.use(errorHandler);

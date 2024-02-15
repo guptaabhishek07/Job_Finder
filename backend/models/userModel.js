@@ -1,7 +1,48 @@
 
 const mongoose = require('mongoose');
+const { ObjectId } = mongoose.Schema;
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+
+
+
+const jobsHistorySchema = new mongoose.Schema({
+
+    title: {
+        type: String,
+        trim: true,
+        maxlength: 70,
+    },
+
+    description: {
+        type: String,
+        trim: true
+    },
+    salary: {
+        type: String,
+        trim: true,
+    },
+    location: {
+        type: String,
+    },
+    interviewDate: {
+        type: Date,
+    },
+    applicationStatus: {
+        type: String,
+        enum: ['pending', 'accepted', 'rejected'],
+        default: 'pending'
+    },
+
+    user: {
+        type: ObjectId,
+        ref: "User",
+        required: true
+    },
+
+
+
+}, { timestamps: true })
 
 const userSchema = new mongoose.Schema({
 
@@ -17,7 +58,7 @@ const userSchema = new mongoose.Schema({
         required: [true, 'last name is required'],
         maxlength: 32,
     },
-    emailId: {
+    email: {
         type: String,
         trim: true,
         required: [true, 'e-mail is required'],
@@ -34,6 +75,8 @@ const userSchema = new mongoose.Schema({
         minlength: [6, 'password must have at least (6) caracters'],
     },
 
+    jobsHistory: [jobsHistorySchema],
+
     role: {
         type: Number,
         default: 0
@@ -41,7 +84,7 @@ const userSchema = new mongoose.Schema({
 
 }, { timestamps: true })
 
-//encrypting password before saving
+/*//encrypting password before saving
 userSchema.pre('save', async function (next) {
     if (!this.isModified('password')) {
         next();
@@ -60,6 +103,7 @@ userSchema.methods.getJwtToken = function () {
         expiresIn: 3600
     });
 }
+*/
 
 
 
