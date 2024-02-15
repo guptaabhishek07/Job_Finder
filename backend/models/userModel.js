@@ -58,10 +58,10 @@ const userSchema = new mongoose.Schema({
         required: [true, 'last name is required'],
         maxlength: 32,
     },
-    email: {
+    emailId: {
         type: String,
         trim: true,
-        required: [true, 'e-mail is required'],
+        required: [true, 'e-mail Id is required'],
         unique: true,
         match: [
             /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
@@ -84,7 +84,7 @@ const userSchema = new mongoose.Schema({
 
 }, { timestamps: true })
 
-/*//encrypting password before saving
+//encrypting password before saving
 userSchema.pre('save', async function (next) {
     if (!this.isModified('password')) {
         next();
@@ -103,7 +103,6 @@ userSchema.methods.getJwtToken = function () {
         expiresIn: 3600
     });
 }
-*/
 
 
 

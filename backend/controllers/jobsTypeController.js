@@ -44,6 +44,7 @@ exports.updateJobType = async (req, res, next) => {
     }
 }
 
+
 //delete job type
 exports.deleteJobType = async (req, res, next) => {
     try {

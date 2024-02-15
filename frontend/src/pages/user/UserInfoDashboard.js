@@ -26,7 +26,7 @@ const UserInfoDashboard = () => {
                             Last name: {user && user.lastName}
                         </Typography>
                         <Typography variant="h6" component="div" sx={{ color: "#fafafa" }} >
-                            E-mail:  {user && user.email}
+                            E-mail:  {user && user.emailId}
                         </Typography>
                         <Typography sx={{ mb: 1.5, color: "grey", pt: 2 }} color="text.secondary">
                             Status: {user && user.role === 0 ? "Regular user" : "Admin"}
