@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { toast } from "react-toastify";
+import Cookies from 'js-cookie';
 import {
     ALL_USER_LOAD_FAIL,
     ALL_USER_LOAD_REQUEST,
@@ -29,6 +30,8 @@ export const userSignInAction = (user) => async (dispatch) => {
     try {
         const { data } = await axios.post(`${BACKEND_BASE_URL}/api/signin`, user);
         localStorage.setItem('userInfo', JSON.stringify(data));
+        const token = data.token;
+        Cookies.set('token', token, { expires: 7, secure: true })
         dispatch({
             type: USER_SIGNIN_SUCCESS,
             payload: data
@@ -88,7 +91,13 @@ export const userLogoutAction = () => async (dispatch) => {
 export const userProfileAction = () => async (dispatch) => {
     dispatch({ type: USER_LOAD_REQUEST });
     try {
-        const { data } = await axios.get(`${BACKEND_BASE_URL}/api/me`);
+        const { data } = await axios.get(`${BACKEND_BASE_URL}/api/me`, {
+            withCredentials: true,
+            headers: {
+                'Access-Control-Allow-Origin': '*', 
+                'Content-Type': 'application/json'
+            }
+        });
         dispatch({
             type: USER_LOAD_SUCCESS,
             payload: data
@@ -97,7 +106,7 @@ export const userProfileAction = () => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: USER_LOAD_FAIL,
-            payload: error.response.data.error
+            payload: error.response?.data?.error
         });
     }
 }

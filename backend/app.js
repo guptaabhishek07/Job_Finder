@@ -36,7 +36,12 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(cookieParser());
-app.use(cors());
+const corsOrigin ={
+    origin:'http://localhost:3000', //or whatever port your frontend is using
+    credentials:true,            
+    optionSuccessStatus:200
+}
+app.use(cors(corsOrigin));
 
 
 //ROUTES MIDDLEWARE
