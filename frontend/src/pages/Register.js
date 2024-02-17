@@ -118,13 +118,13 @@ const Register = () => {
                             }}
                             fullWidth
                             id="emailId"
-                            label="E-mail Id"
+                            label="E-mail"
                             name='emailId'
                             InputLabelProps={{
                                 shrink: true,
                             }}
 
-                            placeholder="E-mail Id"
+                            placeholder="E-mail"
                             value={formik.values.emailId}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}

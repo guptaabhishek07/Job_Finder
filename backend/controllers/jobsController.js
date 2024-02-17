@@ -51,6 +51,20 @@ exports.updateJob = async (req, res, next) => {
 }
 
 
+//delete job by id.
+exports.deleteJob = async (req, res, next) => {
+    try {
+        const job = await Job.findByIdAndDelete(req.params.job_id);
+        res.status(200).json({
+            success: true,
+            message: "job deleted."
+        })
+    } catch (error) {
+        next(error);
+    }
+}
+
+
 //update job by id.
 exports.showJobs = async (req, res, next) => {
 
@@ -92,7 +106,7 @@ exports.showJobs = async (req, res, next) => {
     const count = await Job.find({ ...keyword, jobType: categ, location: locationFilter }).countDocuments();
 
     try {
-        const jobs = await Job.find({ ...keyword, jobType: categ, location: locationFilter }).sort({ createdAt: -1 }).skip(pageSize * (page - 1)).limit(pageSize)
+        const jobs = await Job.find({ ...keyword, jobType: categ, location: locationFilter }).sort({ createdAt: -1 }).populate('jobType', 'jobTypeName').populate('user', 'firstName').skip(pageSize * (page - 1)).limit(pageSize)
         res.status(200).json({
             success: true,
             jobs,
@@ -106,6 +120,7 @@ exports.showJobs = async (req, res, next) => {
         next(error);
     }
 }
+
 
 
 

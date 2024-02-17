@@ -8,8 +8,8 @@ import {
     JOB_TYPE_LOAD_REQUEST,
     JOB_TYPE_LOAD_SUCCESS
 } from '../constants/jobTypeConstant';
-import { BACKEND_BASE_URL } from '../constants/jobconstant';
 
+import { BACKEND_BASE_URL } from '../constants/jobconstant';
 
 // load jobs type
 export const jobTypeLoadAction = () => async (dispatch) => {

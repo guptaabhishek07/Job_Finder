@@ -27,13 +27,13 @@ exports.signin = async (req, res, next) => {
         const { emailId, password } = req.body;
         //validation
         if (!emailId) {
-            return next(new ErrorResponse("please add an email", 403));
+            return next(new ErrorResponse("please add an emailId", 403));
         }
         if (!password) {
             return next(new ErrorResponse("please add a password", 403));
         }
 
-        //check user email
+        //check user emailId
         const user = await User.findOne({ emailId });
         if (!user) {
             return next(new ErrorResponse("invalid credentials", 400));
@@ -56,7 +56,10 @@ const sendTokenResponse = async (user, codeStatus, res) => {
     res
         .status(codeStatus)
         .cookie('token', token, { maxAge: 60 * 60 * 1000, httpOnly: true })
-        .json({ success: true, token, user })
+        .json({
+            success: true,
+            role: user.role
+        })
 }
 
 
@@ -80,6 +83,7 @@ exports.userProfile = async (req, res, next) => {
         user
     })
 }
+
 
 
 

@@ -17,5 +17,4 @@ export const DELETE_JOB_REQUEST = "DELETE_JOB_REQUEST";
 export const DELETE_JOB_SUCCESS = "DELETE_JOB_SUCCESS";
 export const DELETE_JOB_FAIL = "DELETE_JOB_FAIL";
 export const DELETE_JOB_RESET = "DELETE_JOB_RESET";
-
 export const BACKEND_BASE_URL = "http://localhost:9000"

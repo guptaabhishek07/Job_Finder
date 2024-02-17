@@ -15,7 +15,7 @@ const validationSchema = yup.object({
     emailId: yup
         .string('Enter your emailId')
         .email('Enter a valid emailId')
-        .required('EmailId is required'),
+        .required('emailId is required'),
     password: yup
         .string('Enter your password')
         .min(8, 'Password should be of minimum 8 characters length')
@@ -78,13 +78,13 @@ const LogIn = () => {
                             }}
                             fullWidth
                             id="emailId"
-                            label="E-mail Id"
+                            label="E-mail"
                             name='emailId'
                             InputLabelProps={{
                                 shrink: true,
                             }}
 
-                            placeholder="E-mail Id"
+                            placeholder="E-mail"
                             value={formik.values.emailId}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}

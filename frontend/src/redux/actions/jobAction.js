@@ -14,8 +14,8 @@ import {
     REGISTER_JOB_REQUEST,
     REGISTER_JOB_SUCCESS
 } from "../constants/jobconstant"
-import { BACKEND_BASE_URL } from '../constants/jobconstant';
 
+import { BACKEND_BASE_URL } from '../constants/jobconstant';
 
 export const jobLoadAction = (pageNumber, keyword = '', cat = '', location = '') => async (dispatch) => {
     dispatch({ type: JOB_LOAD_REQUEST });
