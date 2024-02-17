@@ -19,3 +19,53 @@
   border-left-width: 1px;
   border-right-width: 1px;
 }
+
+.form-control{  
+  position: relative;
+  outline: 0px;
+  display: flex;
+  justify-content: center;
+  border-style: solid;
+  border-color: rgb(231, 235, 240);
+  border-image: initial;
+  background-color: antiquewhite;
+  width: 46%;
+  margin-top: -3%;
+  margin-left: 43%;
+  padding-top: 29px;
+  border-radius: 8px;
+}
+
+.form-label{
+  color: white;
+  font-size: larger;
+}
+
+.btn.btn-dark{
+  background-color: white;
+  border: none;
+  color: black;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 9px;
+  margin: 41px;
+  margin-left: 94px;
+}
+
+
+.btn.btn-primary{
+  background-color: white;
+  border: none;
+  color: black;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 9px;
+  margin: 41px; 
+  margin-left: 18px;
+}
