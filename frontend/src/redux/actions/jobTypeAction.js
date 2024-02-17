@@ -23,7 +23,7 @@ export const jobTypeLoadAction = () => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: JOB_TYPE_LOAD_FAIL,
-            payload: error.response.data.error
+            payload: error.response?.data?.error
         });
     }
 }

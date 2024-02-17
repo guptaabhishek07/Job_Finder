@@ -7,15 +7,12 @@ require("dotenv").config();
 var cors = require('cors');
 const path = require('path');
 
-
-
-
 // import routes
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const jobTypeRoute = require('./routes/jobsTypeRoutes');
 const jobRoute = require('./routes/jobsRoutes');
-
+const createResumeRoutes = require('./routes/createResumeRoutes');
 const cookieParser = require("cookie-parser");
 const errorHandler = require("./middleware/error");
 
@@ -39,14 +36,15 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(cookieParser());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static("../client/build"));
 const corsOptions ={
     origin:'http://localhost:3000', 
     credentials:true,            //access-control-allow-credentials:true
     optionSuccessStatus:200
 }
 app.use(cors(corsOptions));
-
-
 //ROUTES MIDDLEWARE
 // app.get('/', (req, res) => {
 //     res.send("Hello from Node Js");
@@ -55,6 +53,7 @@ app.use('/api', authRoutes);
 app.use('/api', userRoutes);
 app.use('/api', jobTypeRoute);
 app.use('/api', jobRoute);
+app.use('/api',createResumeRoutes);
 
 __dirname = path.resolve()
 
