@@ -20,6 +20,7 @@ import { BACKEND_BASE_URL } from '../constants/jobconstant';
 export const jobLoadAction = (pageNumber, keyword = '', cat = '', location = '') => async (dispatch) => {
     dispatch({ type: JOB_LOAD_REQUEST });
     try {
+        // axios.defaults.withCredentials = true;
         const { data } = await axios.get(`${BACKEND_BASE_URL}/api/jobs/show/?pageNumber=${pageNumber}&keyword=${keyword}&cat=${cat}&location=${location}`)
         dispatch({
             type: JOB_LOAD_SUCCESS,
@@ -28,7 +29,7 @@ export const jobLoadAction = (pageNumber, keyword = '', cat = '', location = '')
     } catch (error) {
         dispatch({
             type: JOB_LOAD_FAIL,
-            payload: error.response.data.error
+            payload: error.response?.data?.error
         });
     }
 }
@@ -37,6 +38,7 @@ export const jobLoadAction = (pageNumber, keyword = '', cat = '', location = '')
 export const jobLoadSingleAction = (id) => async (dispatch) => {
     dispatch({ type: JOB_LOAD_SINGLE_REQUEST });
     try {
+        // axios.defaults.withCredentials = true;
         const { data } = await axios.get(`${BACKEND_BASE_URL}/api/job/${id}`);
         dispatch({
             type: JOB_LOAD_SINGLE_SUCCESS,
@@ -45,7 +47,7 @@ export const jobLoadSingleAction = (id) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: JOB_LOAD_SINGLE_FAIL,
-            payload: error.response.data.error
+            payload: error.response?.data?.error
         });
     }
 }
@@ -55,6 +57,7 @@ export const jobLoadSingleAction = (id) => async (dispatch) => {
 export const deleteSingleJobAction = (job_id) => async (dispatch) => {
     dispatch({ type: DELETE_JOB_REQUEST });
     try {
+        // axios.defaults.withCredentials = true;
         const { data } = await axios.delete(`${BACKEND_BASE_URL}/api/job/delete/${job_id}`);
         dispatch({
             type: DELETE_JOB_SUCCESS,
@@ -64,9 +67,9 @@ export const deleteSingleJobAction = (job_id) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: DELETE_JOB_FAIL,
-            payload: error.response.data.error
+            payload: error.response?.data?.error
         });
-        toast.error(error.response.data.error);
+        toast.error(error.response?.data?.error);
     }
 }
 
@@ -75,6 +78,7 @@ export const registerAjobAction = (job) => async (dispatch) => {
     dispatch({ type: REGISTER_JOB_REQUEST })
 
     try {
+        axios.defaults.withCredentials = true;
         const { data } = await axios.post(`${BACKEND_BASE_URL}/api/job/create`, job)
         dispatch({
             type: REGISTER_JOB_SUCCESS,
@@ -85,8 +89,8 @@ export const registerAjobAction = (job) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: REGISTER_JOB_FAIL,
-            payload: error.response.data.error
+            payload: error.response?.data?.error
         })
-        toast.error(error.response.data.error);
+        toast.error(error.response?.data?.error);
     }
 }

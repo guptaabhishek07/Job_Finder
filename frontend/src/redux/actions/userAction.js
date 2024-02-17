@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { toast } from "react-toastify";
+import Cookies from 'js-cookie';
 import {
     ALL_USER_LOAD_FAIL,
     ALL_USER_LOAD_REQUEST,
@@ -30,6 +31,7 @@ export const userSignInAction = (user) => async (dispatch) => {
     try {
         const { data } = await axios.post(`${BACKEND_BASE_URL}/api/signin`, user);
         localStorage.setItem('userInfo', JSON.stringify(data));
+        Cookies.set("token", data.token, {expires: 7})
         dispatch({
             type: USER_SIGNIN_SUCCESS,
             payload: data
@@ -38,9 +40,9 @@ export const userSignInAction = (user) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: USER_SIGNIN_FAIL,
-            payload: error.response.data.error
+            payload: error.response?.data?.error
         });
-        toast.error(error.response.data.error);
+        toast.error(error.response?.data?.error);
     }
 }
 
@@ -48,8 +50,7 @@ export const userSignInAction = (user) => async (dispatch) => {
 export const userSignUpAction = (user) => async (dispatch) => {
     dispatch({ type: USER_SIGNUP_REQUEST });
     try {
-        const { data } = await axios.post(`${BACKEND_BASE_URL}/api/signup`, user);
-
+        const { data } = await axios.post(`${BACKEND_BASE_URL}/api/signup`, user);        
         dispatch({
             type: USER_SIGNUP_SUCCESS,
             payload: data
@@ -58,9 +59,9 @@ export const userSignUpAction = (user) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: USER_SIGNUP_FAIL,
-            payload: error.response.data.error
+            payload: error.response?.data?.error
         });
-        toast.error(error.response.data.error);
+        toast.error(error.response?.data?.error);
     }
 }
 
@@ -78,9 +79,9 @@ export const userLogoutAction = () => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: USER_LOGOUT_FAIL,
-            payload: error.response.data.error
+            payload: error.response?.data?.error
         });
-        toast.error(error.response.data.error);
+        toast.error(error.response?.data?.error);
     }
 }
 
@@ -89,6 +90,7 @@ export const userLogoutAction = () => async (dispatch) => {
 export const userProfileAction = () => async (dispatch) => {
     dispatch({ type: USER_LOAD_REQUEST });
     try {
+        axios.defaults.withCredentials = true;
         const { data } = await axios.get(`${BACKEND_BASE_URL}/api/me`);
         dispatch({
             type: USER_LOAD_SUCCESS,
@@ -98,7 +100,7 @@ export const userProfileAction = () => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: USER_LOAD_FAIL,
-            payload: error.response.data.error
+            payload: error.response?.data?.error
         });
     }
 }
@@ -117,7 +119,7 @@ export const allUserAction = () => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: ALL_USER_LOAD_FAIL,
-            payload: error.response.data.error
+            payload: error.response?.data?.error
         });
     }
 }
@@ -136,8 +138,8 @@ export const userApplyJobAction = (job) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: USER_APPLY_JOB_FAIL,
-            payload: error.response.data.error
+            payload: error.response?.data?.error
         });
-        toast.error(error.response.data.error);
+        toast.error(error.response?.data?.error);
     }
 }
