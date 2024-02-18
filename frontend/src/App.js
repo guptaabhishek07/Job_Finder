@@ -70,10 +70,10 @@ const App = () => {
                             <Route path='/admin/category' element={<AdminRoute><DashCategoryHOC /></AdminRoute>} />
                             <Route path='/admin/job/create' element={<AdminRoute><DashCreateJobHOC /></AdminRoute>} />
                             <Route path='/admin/category/create' element={<AdminRoute><DashCreateCategoryHOC /></AdminRoute>} />
-                            <Route path='/admin/resume' element={<AdminRoute>< ResumeHOC /></AdminRoute>} />
                             <Route path='/user/dashboard' element={<UserRoute>< UserDashboardHOC /></UserRoute>} />
                             <Route path='/user/jobs' element={<UserRoute>< UserJobsHistoryHOC /></UserRoute>} />
                             <Route path='/user/info' element={<UserRoute>< UserInfoDashboardHOC /></UserRoute>} />
+                            <Route path='/admin/resume' element={<UserRoute>< ResumeHOC /></UserRoute>} />
                             <Route path='*' element={<NotFound />} />
                         </Routes>
                     </BrowserRouter>
