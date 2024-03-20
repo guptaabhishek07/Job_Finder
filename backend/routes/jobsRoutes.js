@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { createJob, singleJob, updateJob, showJobs, deleteJob } = require('../controllers/jobsController');
+const { createJob, singleJob, updateJob, showJobs, deleteJob, recemmondJobs } = require('../controllers/jobsController');
 const { isAuthenticated, isAdmin } = require('../middleware/auth');
 
 
@@ -17,6 +17,8 @@ router.put('/job/update/:job_id', isAuthenticated, isAdmin, updateJob);
 router.delete('/job/delete/:job_id', isAuthenticated, isAdmin, deleteJob);
 // /api/jobs/show
 router.get('/jobs/show', showJobs);
+// /api/jobs/recemmondJobs
+router.post('/jobs/recommend', recemmondJobs);
 
 
 
