@@ -152,12 +152,30 @@ exports.showJobs = async (req, res, next) => {
 //recemmond jobs by industry.
 exports.recemmondJobs = async (req, res, next) => {
   try {
-    const job = await Job.findByIdAndDelete(req.params.job_id);
-    res.status(200).json({
-      success: true,
-      message: "job deleted.",
-    });
+    const { industry } = req.body;
+
+    let options = {
+      mode: "text",
+      pythonOptions: ["-u"], // get print results in real-time
+      scriptPath: "backend/jobbs", // path to directory containing the Python script
+      args: [industry],
+    };
+
+    PythonShell.run(
+      "app.py",
+      options,
+      function (err, results) {
+        if (err) {
+          console.error("Python script execution error:", err);
+          res.status(500).json({ message: "Internal Server Error" });
+        } else {
+          const recommendations = JSON.parse(results);
+          res.status(200).json(recommendations);
+        }
+      }
+    );
   } catch (error) {
+    console.log("error ===", error)
     next(error);
   }
 };
