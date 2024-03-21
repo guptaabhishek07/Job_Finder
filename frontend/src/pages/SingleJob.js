@@ -10,6 +10,8 @@ import { jobLoadSingleAction } from '../redux/actions/jobAction'
 import Button from '@mui/material/Button'
 import { userApplyJobAction } from '../redux/actions/userAction'
 import { useTheme } from '@emotion/react'
+import RecemmondedJobs from './recemmondedJobs';
+
 
 
 const SingleJob = () => {
@@ -79,10 +81,11 @@ const SingleJob = () => {
                         </Stack>
 
                     </Container>
+                    <RecemmondedJobs/>
                 </Box>
                 <Footer />
             </Box>
-        </>
+        </>      
     )
 }
 

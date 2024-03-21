@@ -18,7 +18,7 @@ router.delete('/job/delete/:job_id', isAuthenticated, isAdmin, deleteJob);
 // /api/jobs/show
 router.get('/jobs/show', showJobs);
 // /api/jobs/recemmondJobs
-router.post('/jobs/recommend', recemmondJobs);
+router.get('/jobs/recommend', recemmondJobs);
 
 
 

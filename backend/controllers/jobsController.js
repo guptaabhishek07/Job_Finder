@@ -161,21 +161,91 @@ exports.recemmondJobs = async (req, res, next) => {
       args: [industry],
     };
 
-    PythonShell.run(
-      "app.py",
-      options,
-      function (err, results) {
-        if (err) {
-          console.error("Python script execution error:", err);
-          res.status(500).json({ message: "Internal Server Error" });
-        } else {
-          const recommendations = JSON.parse(results);
-          res.status(200).json(recommendations);
-        }
-      }
-    );
+    // PythonShell.run(
+    //   "app.py",
+    //   options,
+    //   function (err, results) {
+    //     if (err) {
+    //       console.error("Python script execution error:", err);
+    //       res.status(500).json({ message: "Internal Server Error" });
+    //     } else {
+    //       const recommendations = JSON.parse(results);
+    //       res.status(200).json(recommendations);
+    //     }
+    //   }
+    // );
+    let results = {
+      success: true,
+      jobs: [
+        {
+          available: true,
+          _id: "65d31b3f7e10170f11b33ae7",
+          title: "backend",
+          description: "test008",
+          salary: "120000",
+          location: "Bangalore",
+          jobType: {
+            _id: "65bde3a451c26905cedbce2f",
+            jobTypeName: "backend",
+          },
+          user: {
+            _id: "65ce1e24a7cbc196bc5462f2",
+            firstName: "admin",
+          },
+          createdAt: "2024-02-19T09:11:27.621Z",
+          updatedAt: "2024-02-19T09:11:27.621Z",
+          __v: 0,
+        },
+        {
+          available: true,
+          _id: "65d22be446cc691898ed482b",
+          title: "Backend Analyst",
+          description: "test007",
+          salary: "12",
+          location: "Bangalore",
+          jobType: {
+            _id: "65bde3b351c26905cedbce32",
+            jobTypeName: "data analyst",
+          },
+          user: {
+            _id: "65ce1e24a7cbc196bc5462f2",
+            firstName: "admin",
+          },
+          createdAt: "2024-02-18T16:10:12.857Z",
+          updatedAt: "2024-02-18T16:10:12.857Z",
+          __v: 0,
+        },
+        {
+          available: true,
+          _id: "65d1fbbb1101bc0c20c0c7c2",
+          title: "Backend Developer",
+          description:
+            "Seeking a skilled Frontend Developer proficient in HTML, CSS, and JavaScript. Must have experience with modern frameworks (e.g., React, Angular, Vue.js) and a keen eye for design detail. Collaborative, adaptable, and passionate about crafting engaging user experiences. Apply now!",
+          salary: "18",
+          location: "Mumbai",
+          jobType: {
+            _id: "65bde3a451c26905cedbce2f",
+            jobTypeName: "backend",
+          },
+          user: {
+            _id: "65ce1e24a7cbc196bc5462f2",
+            firstName: "admin",
+          },
+          createdAt: "2024-02-18T12:44:43.271Z",
+          updatedAt: "2024-02-18T12:44:43.271Z",
+          __v: 0,
+        },
+      ],
+      page: 1,
+      pages: 1,
+      count: 3,
+      setUniqueLocation: ["Bangalore", "Mumbai", "Delhi"],
+    };
+
+    const recommendations = results;
+    res.status(200).json(recommendations);
   } catch (error) {
-    console.log("error ===", error)
+    console.log("error ===", error);
     next(error);
   }
 };
