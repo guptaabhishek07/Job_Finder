@@ -13,7 +13,7 @@ router.get('/user/:id', isAuthenticated, singleUser);
 // /api/user/edit/id
 router.put('/user/edit/:id', isAuthenticated, editUser);
 // /api/admin/user/delete/id
-router.delete('/admin/user/delete/:id', isAuthenticated, isAdmin, deleteUser);
+router.delete('/user/delete/:user_id', isAuthenticated, isAdmin, deleteUser);
 // /api/user/jobhistory
 router.post('/user/jobhistory', isAuthenticated, createUserJobsHistory);
 

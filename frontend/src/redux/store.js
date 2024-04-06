@@ -9,7 +9,8 @@ import {
     userReducerLogout,
     userReducerProfile,
     userReducerSignIn,
-    userReducerSignUp
+    userReducerSignUp,
+    deleteUserReducer
 } from './reducers/userReducer';
 import { modeReducer } from './reducers/themeModeReducer';
 
@@ -20,6 +21,7 @@ const reducer = combineReducers({
     signIn: userReducerSignIn,
     logOut: userReducerLogout,
     userProfile: userReducerProfile,
+    deleteUser: deleteUserReducer,
     singleJob: loadJobSingleReducer,
     userJobApplication: userApplyJobReducer,
     allUsers: allUserReducer,

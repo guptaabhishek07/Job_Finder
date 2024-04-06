@@ -61,17 +61,15 @@ exports.editUser = async (req, res, next) => {
 //delete user
 exports.deleteUser = async (req, res, next) => {
     try {
-        const user = await User.findByIdAndRemove(req.params.id);
-        res.status(200).json({
-            success: true,
-            message: "user deleted"
-        })
-        next();
-
+      const user = await User.findByIdAndDelete(req.params.user_id);
+      res.status(200).json({
+        success: true,
+        message: "user deleted.",
+      });
     } catch (error) {
-        return next(error);
+      next(error);
     }
-}
+  };
 
 
 //jobs history

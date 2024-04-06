@@ -23,9 +23,9 @@ import {
     USER_REGISTER_REQUEST,
     USER_REGISTER_SUCCESS,
     USER_REGISTER_FAIL,
-    USER_EDIT_SUCCESS,
-    USER_EDIT_FAIL,
-    USER_EDIT_REQUEST
+    DELETE_USER_SUCCESS,
+    DELETE_USER_REQUEST,
+    DELETE_USER_FAIL
 } from '../constants/userConstant';
 
 import { BACKEND_BASE_URL } from '../constants/jobconstant';
@@ -172,22 +172,24 @@ export const userApplyJobAction = (job) => async (dispatch) => {
       }
   };
 
-  export const editAUserAction = (user) => async (dispatch) => {
-    dispatch({ type: USER_EDIT_REQUEST });
 
+//delete single job action
+export const deleteSingleUserAction = (user_id) => async (dispatch) => {
+    dispatch({ type: DELETE_USER_REQUEST });
     try {
-        axios.defaults.withCredentials = true;
-        const { data } = await axios.put(`${BACKEND_BASE_URL}/api/user/edit/${user.id}`, user);
+        // axios.defaults.withCredentials = true;
+        const { data } = await axios.delete(`${BACKEND_BASE_URL}/api/user/delete/${user_id}`);
         dispatch({
-            type: USER_EDIT_SUCCESS,
+            type: DELETE_USER_SUCCESS,
             payload: data
         });
-        toast.success("User Edited successfully");
+        toast.success("User deleted successfully");
     } catch (error) {
         dispatch({
-            type: USER_EDIT_FAIL,
+            type: DELETE_USER_FAIL,
             payload: error.response?.data?.error
         });
         toast.error(error.response?.data?.error);
     }
-};
+}
+

@@ -21,7 +21,10 @@ import {
     USER_SIGNUP_FAIL,
     USER_SIGNUP_REQUEST,
     USER_SIGNUP_RESET,
-    USER_SIGNUP_SUCCESS
+    USER_SIGNUP_SUCCESS,
+    DELETE_USER_REQUEST,
+    DELETE_USER_SUCCESS,
+    DELETE_USER_FAIL
 } from "../constants/userConstant"
 
 
@@ -144,4 +147,26 @@ export const allUserReducer = (state = { users: [] }, action) => {
     }
 
 }
+
+export const deleteUserReducer = (state = {}, action) => {
+  switch (action.type) {
+    case DELETE_USER_REQUEST:
+      // Handle request action if needed
+      return state;
+    case DELETE_USER_SUCCESS:
+      return {
+        ...state,
+        success: true,
+        error: null
+      };
+    case DELETE_USER_FAIL:
+      return {
+        ...state,
+        success: false,
+        error: action.payload // Assuming payload contains the error message
+      };
+    default:
+      return state;
+  }
+};
 

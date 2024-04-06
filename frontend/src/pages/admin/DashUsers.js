@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
-import { allUserAction } from "../../redux/actions/userAction";
+import { allUserAction , deleteSingleUserAction} from "../../redux/actions/userAction";
 
 const DashUsers = () => {
   const dispatch = useDispatch();
@@ -14,13 +14,19 @@ const DashUsers = () => {
     dispatch(allUserAction());
   }, []);
 
+  const { success: deleteSuccess } = useSelector(state => state.deleteUser);
   const { users, loading } = useSelector((state) => state.allUsers);
   let data = [];
   data = users !== undefined && users.length > 0 ? users : [];
-
-  const deleteUserById = (e, id) => {
-    console.log(id);
-  };
+     // delete a user by id
+     const deleteUserById = (e, id) => {
+      if (window.confirm(`You really want to delete user ID: "${id}" ?`)) {
+          dispatch(deleteSingleUserAction(id));
+          // if (deleteSuccess && deleteSuccess === true) {
+              dispatch(allUserAction())
+          // }
+      }
+  }
 
   const columns = [
     {
