@@ -73,7 +73,7 @@ const DashJobs = () => {
             type: Number,
             width: 150,
             renderCell: (values => (
-                "$" + values.row.salary
+                "₹" + values.row.salary
             ))
 
         },
@@ -83,7 +83,7 @@ const DashJobs = () => {
             width: 200,
             renderCell: (values) => (
                 <Box sx={{ display: "flex", justifyContent: "space-between", width: "170px" }}>
-                    <Button variant="contained"><Link style={{ color: "white", textDecoration: "none" }} to={`/admin/edit/job/${values.row._id}`}>Edit</Link></ Button>
+                    {/* <Button variant="contained"><Link style={{ color: "white", textDecoration: "none" }} to={`/admin/edit/job/${values.row._id}`}>Edit</Link></ Button> */}
                     < Button onClick={(e) => deleteJobById(e, values.row._id)} variant="contained" color="error">Delete</ Button>
                 </Box>
             )

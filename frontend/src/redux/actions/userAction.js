@@ -19,7 +19,13 @@ import {
     USER_SIGNIN_SUCCESS,
     USER_SIGNUP_FAIL,
     USER_SIGNUP_REQUEST,
-    USER_SIGNUP_SUCCESS
+    USER_SIGNUP_SUCCESS,
+    USER_REGISTER_REQUEST,
+    USER_REGISTER_SUCCESS,
+    USER_REGISTER_FAIL,
+    USER_EDIT_SUCCESS,
+    USER_EDIT_FAIL,
+    USER_EDIT_REQUEST
 } from '../constants/userConstant';
 
 import { BACKEND_BASE_URL } from '../constants/jobconstant';
@@ -143,3 +149,45 @@ export const userApplyJobAction = (job) => async (dispatch) => {
         toast.error(error.response?.data?.error);
     }
 }
+
+// userAction.js
+
+  export const registerAUserAction = (user) => async (dispatch) => {
+      dispatch({ type: USER_REGISTER_REQUEST });
+  
+      try {
+          axios.defaults.withCredentials = true;
+          const { data } = await axios.post(`${BACKEND_BASE_URL}/api/signup`, user);
+          dispatch({
+              type: USER_REGISTER_SUCCESS,
+              payload: data
+          });
+          toast.success("User created successfully");
+      } catch (error) {
+          dispatch({
+              type: USER_REGISTER_FAIL,
+              payload: error.response?.data?.error
+          });
+          toast.error(error.response?.data?.error);
+      }
+  };
+
+  export const editAUserAction = (user) => async (dispatch) => {
+    dispatch({ type: USER_EDIT_REQUEST });
+
+    try {
+        axios.defaults.withCredentials = true;
+        const { data } = await axios.put(`${BACKEND_BASE_URL}/api/user/edit/${user.id}`, user);
+        dispatch({
+            type: USER_EDIT_SUCCESS,
+            payload: data
+        });
+        toast.success("User Edited successfully");
+    } catch (error) {
+        dispatch({
+            type: USER_EDIT_FAIL,
+            payload: error.response?.data?.error
+        });
+        toast.error(error.response?.data?.error);
+    }
+};
