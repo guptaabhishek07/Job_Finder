@@ -3,6 +3,7 @@ const JobType = require("../models/jobTypeModel");
 const ErrorResponse = require("../utils/errorResponse");
 const { PythonShell } = require("python-shell");
 const axios = require("axios");
+const userjobMappingModel = require("../models/userjobMappingModel");
 //create job
 exports.createJob = async (req, res, next) => {
   try {
@@ -27,6 +28,14 @@ exports.createJob = async (req, res, next) => {
 exports.singleJob = async (req, res, next) => {
   try {
     const job = await Job.findById(req.params.id);
+    // const isJobApplied = await userjobMappingModel.find({
+    //   $where: {
+    //     jobId: req.params.id,
+    //     userId: req.user._id,
+    //   },
+    // });
+    // const isAlreadyApplied = isJobApplied.length > 0 ? true : false;
+    // job.isAlreadyApplied = isAlreadyApplied;
     res.status(200).json({
       success: true,
       job,
@@ -141,6 +150,21 @@ exports.recemmondJobs = async (req, res, next) => {
     let results;
     try {
       results = await axios.get(`http://127.0.0.1:5000/jobs?skills=${skills}`);
+      console.log("results======",results.data);
+     /* {
+        jobs: [
+          {
+            _id: '3246',
+            available: true,
+            company: 'The Brixton Group',
+            description: 'Duration: 6+ MonthsCompensation: Open Requirements: 10+ years of full-stack Java development. Must have experience working with the Spring MVC Framework. Must have worked with Struts 2.0. Expert knowledge of JavaScript including Angular, Node and Ember. Local candidates preferred, in person interview required.',
+            location: 'New York, NY',
+            salary: 100000,
+            skills: 'Java, Spring MVC, Struts 2, AngularJS',
+            title: 'Lead Java Developer'
+          }
+        ]
+      }*/
     } catch (err) {
       console.log(
         "Error while fetching the recommendation list from recommendation engine:",

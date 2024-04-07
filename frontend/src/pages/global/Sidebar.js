@@ -5,6 +5,7 @@ import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import { Box, useTheme } from '@mui/material';
 import WorkIcon from '@mui/icons-material/Work';
 import CategoryIcon from '@mui/icons-material/Category';
+import Approval from '@mui/icons-material/Approval';
 import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
 import Person3Icon from '@mui/icons-material/Person3';
 import Avatar from '@mui/material/Avatar';
@@ -91,10 +92,11 @@ const SidebarAdm = () => {
                                         <MenuItem component={<Link to="/admin/category" />} icon={<CategoryIcon />}> Category </MenuItem>                                    </> :
                                     <>
                                         <MenuItem component={<Link to="/user/dashboard" />} icon={<DashboardIcon />}> Dashboard </MenuItem>
-                                        <MenuItem component={<Link to="/user/jobs" />} icon={<WorkHistoryIcon />}> Applied Jobs </MenuItem>
+                                        <MenuItem component={<Link to="/user/jobs" />} icon={<Approval />}> Apply Jobs</MenuItem>
+                                        <MenuItem component={<Link to="/user/jobHistory" />} icon={<WorkHistoryIcon />}> Applied Jobs </MenuItem>
                                         <MenuItem component={<Link to="/user/info" />} icon={<Person3Icon />}> Personal Info </MenuItem>
                                         <MenuItem component={<Link to="/admin/users" />} icon={<GroupAddIcon />}> Users </MenuItem>
-                                        <MenuItem component={<Link to="/admin/resume" />} icon={<CategoryIcon />}> Create Resume </MenuItem>
+                                        <MenuItem component={<Link to="/user/resume" />} icon={<CategoryIcon />}> Create Resume </MenuItem>
                                     </>
                             }
 
