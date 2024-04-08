@@ -104,6 +104,7 @@ const RecemmondedJobs = () => {
                                                 description={job.description}
                                                 category={job.jobType ? job.jobType.jobTypeName : "No category"}
                                                 location={job.location}
+                                                shouldShowMoreDetails={true}
                                             />
                                         ))
                             }

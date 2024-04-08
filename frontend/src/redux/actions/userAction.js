@@ -135,7 +135,6 @@ export const userApplyJobAction = (job) => async (dispatch) => {
     dispatch({ type: USER_APPLY_JOB_REQUEST });
     try {
         const { data } = await axios.post(`${BACKEND_BASE_URL}/api/user/apply`, job);
-
         dispatch({
             type: USER_APPLY_JOB_SUCCESS,
             payload: data

@@ -23,6 +23,9 @@ const UserJobsHistory = () => {
                                 description={history.description}
                                 category=''
                                 location={history.location}
+                                status={history.status ? history.status : "Applied"}
+                                shouldShowMoreDetails={false}
+                                shouldShowStatus = {true}
                             />
                         ))
                     }

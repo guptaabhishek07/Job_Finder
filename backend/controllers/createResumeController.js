@@ -20,7 +20,6 @@ exports.createResume = async(req, res, next) =>{
 
 exports.fetchResume = async(req, res, next) =>{
     try{
-        console.log("coming here path=====",`${__dirname}`)
         res.sendFile(`${__dirname}/Resume.pdf`);
     } catch (error) {
         console.log("error====",error)

@@ -1,11 +1,10 @@
 import { Card, CardContent, Stack, Typography } from "@mui/material";
 import { Box, Container } from "@mui/system";
-import { useEffect, useState } from "react"; // Import useState
+import { useEffect, useState, Fragment } from "react"; // Import useState
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Footer from "../component/Footer";
 import LoadingBox from "../component/LoadingBox";
-import Navbar from "../component/Navbar";
 import { jobLoadSingleAction } from "../redux/actions/jobAction";
 import Button from "@mui/material/Button";
 import { userApplyJobAction } from "../redux/actions/userAction";
@@ -16,8 +15,9 @@ const SingleJob = () => {
   const { palette } = useTheme();
   const dispatch = useDispatch();
   const { singleJob, loading } = useSelector((state) => state.singleJob);
+  const { userJob } = useSelector((state) => state.userJobApplication);
+
   const [applied, setApplied] = useState(false);
-  const { currentUser } = useSelector(state => state.user || {}); // Provide an empty object as default value
   const { id } = useParams();
   useEffect(() => {
     dispatch(jobLoadSingleAction(id));
@@ -37,10 +37,10 @@ const SingleJob = () => {
   };
 
   useEffect(() => {
-    if (currentUser && currentUser._id && singleJob && singleJob.user === currentUser._id) {
-        setApplied(true);
+    if (userJob?.isApplied) {
+      setApplied(true); // Update applied state based on singleJob.applied
     }
-}, [currentUser, singleJob]);
+  }, [userJob]);
 
   const buttonText = applied ? "Applied" : "Apply for this Job";
 
@@ -106,7 +106,13 @@ const SingleJob = () => {
               </Box>
             </Stack>
           </Container>
-          <RecemmondedJobs />
+          {/* Render RecemmondedJobs only if job is applied */}
+          {applied && (
+            <Fragment>
+              <RecemmondedJobs />
+              <Footer />
+            </Fragment>
+          )}{" "}
         </Box>
         <Footer />
       </Box>

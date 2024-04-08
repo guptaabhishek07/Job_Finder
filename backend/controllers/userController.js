@@ -86,7 +86,7 @@ exports.applyJobByUser = async (req, res, next) => {
         userId: userId,
       });
     }
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       currentUser,
       isApplied : true
