@@ -1,5 +1,7 @@
 const User = require("../models/userModel");
+const userjobMapping = require("../models/userjobMappingModel");
 const ErrorResponse = require("../utils/errorResponse");
+const jobs = require("../models/jobModel");
 
 exports.signup = async (req, res, next) => {
   const { emailId } = req.body;
@@ -70,11 +72,36 @@ exports.logout = (req, res, next) => {
 // user profile
 exports.userProfile = async (req, res, next) => {
   const user = await User.findById(req.user.id).select("-password");
+  res.status(200).json({
+    success: true,
+    user,
+  });
+};
 
-  for (const job of user.jobsHistory) {
-    job['isApplied'] = true
-    // console.log("abc", job);
+exports.appliedJobsList = async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+  const JobList = userjobMapping.find({
+    $where: {
+      userId: req.user.id,
+    },
+  });
+
+  let JobIdList = [];
+  JobIdList.forEach((item) => {
+    JobIdList.push(JobIdList.jobId);
+  });
+
+  const uniqueJobList = new Set(JobIdList);
+
+  let jobList = [];
+
+  for (const id of uniqueJobList) {
+    const job = await jobs.find().sort({ createdAt: -1 });
+    jobList.push(job);
   }
+
+  delete user.jobsHistory;
+  user.jobsHistory = jobList;
 
   res.status(200).json({
     success: true,

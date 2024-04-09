@@ -4,8 +4,7 @@ import { DataGrid, gridClasses } from '@mui/x-data-grid';
 import { Link } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
 import { useDispatch, useSelector } from 'react-redux';
-import { jobTypeLoadAction } from '../../redux/actions/jobTypeAction';
-
+import { jobTypeLoadAction, deleteJobTypeAction } from '../../redux/actions/jobTypeAction';
 import moment from 'moment'
 
 
@@ -18,14 +17,19 @@ const DashCategory = () => {
         dispatch(jobTypeLoadAction())
     }, []);
 
-
+    const { success: deleteSuccess } = useSelector(state => state.deleteJobType);
     const { jobType, loading } = useSelector(state => state.jobTypeAll);
     let data = [];
     data = (jobType !== undefined && jobType.length > 0) ? jobType : []
 
     //delete job by Id
     const deleteJobCategoryById = (e, id) => {
-        console.log(id)
+        if (window.confirm(`You really want to delete Job type ID: "${id}" ?`)) {
+            dispatch(deleteJobTypeAction(id));
+            if (deleteSuccess && deleteSuccess === true) {
+                dispatch(jobTypeLoadAction())
+            }
+        }
     }
 
     const columns = [
@@ -56,7 +60,7 @@ const DashCategory = () => {
             width: 200,
             renderCell: (values) => (
                 <Box sx={{ display: "flex", justifyContent: "space-between", width: "170px" }}>
-                    <Button variant="contained"><Link style={{ color: "white", textDecoration: "none" }} to={`/admin/edit/user/${values.row._id}`}>Edit</Link></ Button>
+                    {/* <Button variant="contained"><Link style={{ color: "white", textDecoration: "none" }} to={`/admin/edit/user/${values.row._id}`}>Edit</Link></ Button> */}
                     < Button onClick={(e) => deleteJobCategoryById(e, values.row._id)} variant="contained" color="error">Delete</ Button>
                 </Box>
             )

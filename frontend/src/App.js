@@ -46,10 +46,6 @@ const DashCreateUserHOC = Layout(DashCreateUser)
 const DashCreateCategoryHOC = Layout(DashCreateCategory)
 const ResumeHOC = Layout(ResumeForm)
 
-
-
-
-
 const App = () => {
     const { mode } = useSelector((state) => state.mode);
     const theme = useMemo(() => createTheme(themeColors(mode)), [mode]);

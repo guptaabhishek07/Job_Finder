@@ -77,10 +77,19 @@ exports.applyJobByUser = async (req, res, next) => {
   const { title, description, salary, location, jobId, userId } = req.body;
 
   try {
-    const currentUser = await User.findOne({ _id: userId});
+    const currentUser = await User.findOne({ _id: userId });
     if (!currentUser) {
       return next(new ErrorResponse("You must log In", 401));
     } else {
+      const addJobHistory = {
+        title,
+        description,
+        salary,
+        location,
+        user: req.user._id,
+      };
+      currentUser.jobsHistory.push(addJobHistory);
+      await currentUser.save();
       await userjobMappingModel.create({
         jobId: jobId,
         userId: userId,
@@ -89,7 +98,7 @@ exports.applyJobByUser = async (req, res, next) => {
     return res.status(200).json({
       success: true,
       currentUser,
-      isApplied : true
+      isApplied: true,
     });
     next();
   } catch (error) {
